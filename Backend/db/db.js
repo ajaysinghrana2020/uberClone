@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 function connectToDb(){
     mongoose.connect(process.env.DB_URL).then(()=>{
         console.log("connected to db");
+        console.log("connected to db");
     }).catch(err=>console.log(err));
 }
 
