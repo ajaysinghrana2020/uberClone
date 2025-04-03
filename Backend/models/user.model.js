@@ -3,37 +3,38 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
-const userSchema= new mongoose.Schema({
-    fullname:{
-        firstname:{
-            type:String,
-            required:true,
+const userSchema = new mongoose.Schema({
+    fullname: {
+        firstname: {
+            type: String,
+            required: true,
         },
-        lastname:{
-            type :String,
-            
+        lastname: {
+            type: String,
         }
-
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-        minlength:[5,'email must me more then 5 length']
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: [5, 'Email must be more than 5 characters'],
     },
-    password:{
-        type:String,
-        required:true,
-        unique:true,
-        select:false
+    password: {
+        type: String,
+        required: true,
+        select: false // Password should not be selected by default
     },
-    socketId:{
-        type:String
-
+    socketId: {
+        type: String,
     }
-})
+});
+
 userSchema.methods.generateAuthToken= function(){
-    const token = jwt.sign({_id:this._id }, process.env.JWT_SECRET)
+    const token = jwt.sign(
+        { _id: this._id }, 
+        process.env.JWT_SECRET, 
+        { expiresIn: '24h' } // Set expiration time to 24 hours
+    );
     return token;
 }
 
