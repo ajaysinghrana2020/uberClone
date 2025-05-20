@@ -11,6 +11,11 @@ module.exports.registerUser = async (req, res, next) => {
     }
 
     const { fullname, email, password } = req.body;
+    const isUserAlradyRegisterd= await userModel.findOne({ email });
+
+    if (isUserAlradyRegisterd) {
+        return res.status(400).json({ message: 'User already exists' });
+    }
     const hashedPassword = await userModel.hashPassword(password); // Correct way to hash password
 
     const user = await userService.createUser({
@@ -51,7 +56,6 @@ module.exports.loginUser = async (req, res, next) => {
 
     res.status(200).json({ token, user });
 };
-
 
 module.exports.getUserProfile= async(req,res,next)=>{
     
