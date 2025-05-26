@@ -5,9 +5,13 @@ import { Link } from 'react-router-dom'
 const UserLogin = () => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [userData, setUserData] = React.useState({});
+
     const submitHandler=(e)=>{
-        console.log('Email:', email);
-        console.log('Password:', password);
+        setUserData({
+            email: email,
+            password: password
+        });
         setEmail('');
         setPassword('');
     }
@@ -42,7 +46,7 @@ const UserLogin = () => {
                 <p>New here? <Link to='/signup' className='text-blue-600'>Create new Account</Link></p>
             </div>
             <div >
-                <button className='bg-[#10b461] text-white mb-7 rounded px-4 py-2 border w-full text' type="submit">Sign in as a Captain</button>
+                <Link  to='/captain-login' className='bg-[#10b461] flex items-center justify-center text-white mb-7 rounded px-4 py-2 border w-full text' type="submit">Sign in as a Captain</Link>
             </div>
      </div>
         
