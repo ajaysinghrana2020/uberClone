@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-function connectToDb(){
+function connectToDb() {
     if (!process.env.DB_URL) {
         console.error("DB_URL is not defined in environment variables");
-        process.exit(1); // Exit the process if DB_URL is missing
+        process.exit(1);
     }
 
-    mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect(process.env.DB_URL)
         .then(() => console.log("Connected to DB"))
         .catch(err => {
             console.error("DB connection error:", err);
@@ -14,5 +14,4 @@ function connectToDb(){
         });
 }
 
-
-module.exports= connectToDb;
+module.exports = connectToDb;
