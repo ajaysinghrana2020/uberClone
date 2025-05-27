@@ -7,8 +7,10 @@ import { BrowserRouter } from 'react-router-dom'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <UserContext>
+      <BrowserRouter>
     <App />
     </BrowserRouter>
+    </UserContext>
   </StrictMode>,
 )
