@@ -1,22 +1,32 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useMemo } from 'react';
 
-const UserContext = createContext();
+export const UserDataContext = createContext(null);
 
-export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState({
-        fullname: {
-            firstname: '',
-            lastname: ''
-        },
-        email: '',
-        password: ''
-    });
+const initialUserState = {
+    fullname: {
+        firstname: '',
+        lastname: ''
+    },
+    email: '',
+    password: ''
+};
+
+const UserContext = ({ children }) => {
+    const [user, setUser] = useState(initialUserState);
+
+    const value = useMemo(() => ({ user, setUser }), [user]);
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserDataContext.Provider value={value}>
             {children}
-        </UserContext.Provider>
+        </UserDataContext.Provider>
     );
 };
 
-export const useUser = () => useContext(UserContext);
+// export const useUser = () => useContext(UserDataContext);
+
+// export default UserContext;
+export { UserContext };
+export const useUser = () => useContext(UserDataContext);
+
+// export default UserContext;
